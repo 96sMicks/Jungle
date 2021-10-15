@@ -7,6 +7,11 @@
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
+  <h1> Does this work? <%= @order.line_items.inspect %></h1> 
+
+  <% @order.line_items.each do |item| %>
+    <%= render 'item', product: item.product, quantity: item[:quantity].to_i %>
+  <% end %>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
