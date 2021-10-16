@@ -4,7 +4,7 @@
     <h1>Admin &raquo; All Categories</h1>
   </header>
 
-
+  <%= @categories.inspect %>
   <div class="well">
     <%= link_to '+ New Product', [:new, :admin, :product], class: 'btn btn-info' %>
   </div>
@@ -15,7 +15,7 @@
       <thead>
         <tr>
           <th>Category</th>
-          <th>Description</th>
+          <th>Category Details</th>
         </tr>
       </thead>
       <tbody>
