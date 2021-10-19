@@ -25,6 +25,13 @@ RSpec.describe User, type: :model do
       expect(@user.errors[:password]).to include("can't be blank")
     end
 
+    it 'should not validate a User with no name' do
+      @user = User.create({name: "", email: "John@gmail.com", password: "password", password_confirmation: "password" })
+      @user.valid?
+
+      expect(@user.errors[:name]).to include("can't be blank")
+    end
+
 
   end
 end
