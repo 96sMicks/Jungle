@@ -4,7 +4,7 @@
     <h1>My Cart</h1>
   </header>
 
-  <% if enhanced_cart.length == 0 %>
+  <% if cart.empty? %>
       <h1> Your Cart is Empty ! </h1>
       <%= link_to "Let's go shopping !", :root %>
   <% else %>
