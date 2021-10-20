@@ -42,10 +42,29 @@ RSpec.describe User, type: :model do
 
   describe '.authenticate_with_credentials' do
 
-    it 'should valid a known user in the db' do
-      @user = User.create!({name: "Johnny Flynn", email: "JFlynn@gmail.com", password: "password", password_confirmation: "password" })
-      @user.save!
-      
-      expect
+    it 'return user when authenticate successful' do
+      @user = User.create(name: 'Johnny Flynn', email: 'jflynn@gmail.com', password: 'password', password_confirmation: 'password')
+      @user2 = User.authenticate_with_credentials(@user.email, @user.password)
+      expect(@user2).to_not be_nil
+    end
+
+    it 'return nil if fail to authenticate' do
+      @user = User.create(name: 'Johnny Flynn', email: 'jflynn@gmail.com', password: '12345678', password_confirmation: '12345678')
+      @user2 = User.authenticate_with_credentials('1234@gmail.com', '12345678')
+      expect(@user2).to be_nil
+    end
+
+    it 'email should be without whitespace' do
+      @user = User.create(name: "Jrue Holiday", email: 'jholiday@gmail.com', password: 'password', password_confirmation: 'password')
+      @user2 = User.authenticate_with_credentials(' jholiday@gmail.com ', @user.password)
+      expect(@user).to eq(@user2)
+    end
+
+    it 'email should be lowercase' do
+      @user = User.create(name: "Anthony Davis", email: 'ad@gmail.com', password: '123456789', password_confirmation: '123456789')
+      @user2 = User.authenticate_with_credentials('ad@gMAiL.com', @user.password)
+      expect(@user).to eq(@user2)
+    end
   end
+
 end
